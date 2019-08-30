@@ -15,7 +15,8 @@ CMD ["shell"]
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 1.0.0a5 && \
     poetry --version
 
-COPY poetry.lock pyproject.toml ./
+COPY pyproject.toml .
+COPY poetry.lock .
 
 ARG POETRY_EXTRA_ARGS=''
 
