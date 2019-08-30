@@ -4,7 +4,8 @@ steps:
   - name: kaniko
     image: banzaicloud/drone-kaniko
     settings:
-      repo: registry.registry
+      repo: registry.registry/inspirehep
+      registry: registry.registry
       context: backend/
       tags:
         - '${DRONE_COMMIT_SHA}'
