@@ -6,7 +6,7 @@ steps:
     settings:
       registry: 'registry.drone.svc.cluster.local'
       repo: 'inspirehep/inspirehep'
-      context: 'dir://backend'
+      context: 'dir:////drone/src/backend'
       cache: true
       tags:
         - '${DRONE_COMMIT_SHA}'
@@ -128,7 +128,6 @@ steps:
   - name: test
     image: alekzonder/puppeteer
     commands:
-      - pwd
       - cd ui
       - yarn
       - yarn build
