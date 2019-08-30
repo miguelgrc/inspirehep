@@ -11,7 +11,8 @@ steps:
 ---
 kind: pipeline
 name: unit
-depends_on: build
+depends_on:
+  - build
 steps:
   - name: test
     image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
@@ -22,7 +23,8 @@ steps:
 ---
 kind: pipeline
 name: integration
-depends_on: build
+depends_on:
+  - build
 steps:
   - name: test
     image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
@@ -67,7 +69,8 @@ services:
 
 kind: pipeline
 name: integration-async
-depends_on: build
+depends_on:
+  - build
 steps:
   - name: test
     image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
