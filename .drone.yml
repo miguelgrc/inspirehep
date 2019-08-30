@@ -4,8 +4,8 @@ steps:
   - name: kaniko
     image: banzaicloud/drone-kaniko
     settings:
-      repo: registry/inspirehep/inspirehep
-      registry: registry/inspirehep
+      repo: inspirehep/inspirehep
+      registry: registry
       context: backend/
       cache: true
       tags:
