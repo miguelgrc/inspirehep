@@ -4,7 +4,7 @@ steps:
   - name: kaniko
     image: banzaicloud/drone-kaniko
     settings:
-      repo: registry.registry/inspirehep
+      repo: inspirehep/inspirehep
       registry: registry.registry
       context: backend/
       tags:
@@ -19,7 +19,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'http://registry.retgistry/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
       - poetry run py.test tests/unit
 
@@ -32,7 +32,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'http://registry.retgistry/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
       - poetry run py.test -vvv tests/integration/
     environment:
@@ -79,7 +79,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'http://registry.retgistry/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
       - cd backend
       - poetry run py.test tests/integration-async
