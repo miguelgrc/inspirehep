@@ -7,7 +7,8 @@
 
 FROM python:3.6.7
 
-ENV PATH="/root/.poetry/bin:$PATH"
+ENV PATH="/root/.poetry/bin:$PATH" \
+    PYTHONUNBUFFERED=0
 WORKDIR /opt/inspire
 ENTRYPOINT ["inspirehep"]
 CMD ["shell"]
@@ -15,9 +16,7 @@ CMD ["shell"]
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 1.0.0a5 && \
     poetry --version
 
-COPY pyproject.toml .
-COPY poetry.lock .
-
+COPY pyproject.toml poetry.lock ./
 ARG POETRY_EXTRA_ARGS=''
 
 RUN poetry export --without-hashes --format=requirements.txt ${POETRY_EXTRA_ARGS} && \
