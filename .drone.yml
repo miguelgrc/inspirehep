@@ -5,31 +5,34 @@ steps:
     image: banzaicloud/drone-kaniko
     settings:
       repo: registry.registry
+      context: backend/
       tags:
         - '${DRONE_COMMIT_SHA}'
 
 ---
 kind: pipeline
 name: unit
+clone:
+  disable: true
 depends_on:
   - build
 steps:
   - name: test
     image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
-      - cd backend
       - poetry run py.test tests/unit
 
 ---
 kind: pipeline
 name: integration
+clone:
+  disable: true
 depends_on:
   - build
 steps:
   - name: test
     image: 'http://registry.retgistry/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
-      - cd backend
       - poetry run py.test -vvv tests/integration/
     environment:
       INVENIO_ACCOUNTS_SESSION_REDIS_URL: "redis://redis:6379/2"
@@ -69,6 +72,8 @@ services:
 
 kind: pipeline
 name: integration-async
+clone:
+  disable: true
 depends_on:
   - build
 steps:
