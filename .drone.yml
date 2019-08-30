@@ -5,7 +5,7 @@ steps:
     image: banzaicloud/drone-kaniko
     settings:
       repo: inspirehep/inspirehep
-      registry: registry
+      registry: http://registry
       context: backend/
       tags:
         - '${DRONE_COMMIT_SHA}'
