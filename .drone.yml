@@ -22,6 +22,7 @@ steps:
   - name: test
     image: 'http://registry/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
+      - echo "starting"
       - poetry run py.test tests/unit
 
 ---
