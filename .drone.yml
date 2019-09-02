@@ -8,7 +8,7 @@ steps:
         from_secret: docker-username
       password:
         from_secret: docker-password
-      repo: 'inspirehep/inspirehep'
+      repo: 'inspirehep/hep'
       context: 'dir:////drone/src/backend'
       cache: false
       tags:
@@ -23,7 +23,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
       - poetry run py.test tests/unit
 
@@ -36,7 +36,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
       - poetry run py.test -vvv tests/integration/
     environment:
@@ -83,7 +83,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
       - cd backend
       - poetry run py.test tests/integration-async
