@@ -4,10 +4,13 @@ steps:
   - name: kaniko
     image: banzaicloud/drone-kaniko
     settings:
-      registry: 'registry.drone.svc.cluster.local'
+      username:
+        from_secret: docker-username
+      password:
+        from_secret: docker-password
       repo: 'inspirehep/inspirehep'
       context: 'dir:////drone/src/backend'
-      cache: true
+      cache: false
       tags:
         - '${DRONE_COMMIT_SHA}'
 
