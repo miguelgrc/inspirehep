@@ -23,7 +23,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'registry.drone.svc.cluster.local/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
       - poetry run py.test tests/unit
 
@@ -36,7 +36,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'registry.drone.svc.cluster.local/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
       - poetry run py.test -vvv tests/integration/
     environment:
@@ -83,7 +83,7 @@ depends_on:
   - build
 steps:
   - name: test
-    image: 'registry.drone.svc.cluster.local/inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
+    image: 'inspirehep/inspirehep:${DRONE_COMMIT_SHA}'
     commands:
       - cd backend
       - poetry run py.test tests/integration-async
