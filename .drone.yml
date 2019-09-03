@@ -10,7 +10,6 @@ steps:
         from_secret: docker-password
       repo: 'inspirehep/hep'
       context: 'dir:////drone/src/backend'
-      cache: false
       tags:
         - '${DRONE_COMMIT_SHA}'
 
