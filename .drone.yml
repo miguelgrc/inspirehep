@@ -13,7 +13,7 @@ steps:
       tags:
         - '${DRONE_COMMIT_SHA}'
       build_args:
-        - POETRY_EXTRA_ARGS='--dev'
+        - POETRY_EXTRA_ARGS=--dev
 
 ---
 kind: pipeline

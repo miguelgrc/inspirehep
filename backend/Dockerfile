@@ -13,14 +13,15 @@ WORKDIR /opt/inspire
 ENTRYPOINT ["inspirehep"]
 CMD ["shell"]
 
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 1.0.0a5 && \
-    poetry --version
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py \
+  | python - --version 1.0.0a5 \
+ && poetry --version
 
 COPY pyproject.toml poetry.lock ./
-ARG POETRY_EXTRA_ARGS=''
+ARG POETRY_EXTRA_ARGS
 
-RUN poetry export --without-hashes --format=requirements.txt ${POETRY_EXTRA_ARGS} && \
-    pip install --no-cache-dir -r requirements.txt
+RUN poetry export --without-hashes --format=requirements.txt ${POETRY_EXTRA_ARGS} \
+ && pip install --no-cache-dir -r requirements.txt
 
 COPY setup.py ./
 COPY inspirehep inspirehep/
