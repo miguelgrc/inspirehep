@@ -12,6 +12,8 @@ steps:
       context: 'dir:////drone/src/backend'
       tags:
         - '${DRONE_COMMIT_SHA}'
+      build_args:
+        - POETRY_EXTRA_ARGS='--dev'
 
 ---
 kind: pipeline
