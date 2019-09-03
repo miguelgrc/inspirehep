@@ -25,6 +25,8 @@ steps:
   - name: test
     image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
+      - pwd
+      - ls
       - poetry run py.test tests/unit
 
 ---
