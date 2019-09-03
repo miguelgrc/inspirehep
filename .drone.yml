@@ -24,8 +24,7 @@ steps:
   - name: test
     image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
-      - pwd
-      - ls
+      - cd /opt/inspire
       - poetry run py.test tests/unit
 
 ---
@@ -39,6 +38,7 @@ steps:
   - name: test
     image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
+      - cd /opt/inspire
       - poetry run py.test -vvv tests/integration/
     environment:
       INVENIO_ACCOUNTS_SESSION_REDIS_URL: "redis://redis:6379/2"
@@ -86,7 +86,7 @@ steps:
   - name: test
     image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
     commands:
-      - cd backend
+      - cd /opt/inspire
       - poetry run py.test tests/integration-async
     environment:
       INVENIO_ACCOUNTS_SESSION_REDIS_URL: "redis://redis:6379/2"
