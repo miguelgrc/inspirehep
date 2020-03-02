@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import CheckboxAggregation from './CheckboxAggregation';
 import RangeAggregation from './RangeAggregation';
 import MultiSelectAggregation from './MultiSelectAggregation';
+import CheckboxCompositeAggregation from './CheckboxAggregation/CheckboxCompositeAggregation';
+import CheckboxSimpleAggregation from './CheckboxAggregation/CheckboxSimpleAggregation';
 
 class AggregationFilter extends Component {
   render() {
@@ -13,16 +14,22 @@ class AggregationFilter extends Component {
         return <RangeAggregation {...aggregationProps} />;
       case 'multiselect':
         return <MultiSelectAggregation {...aggregationProps} />;
+      case 'checkbox-composite':
+        return <CheckboxCompositeAggregation {...aggregationProps} />;
       case 'checkbox':
       default:
-        return <CheckboxAggregation {...aggregationProps} />;
+        return <CheckboxSimpleAggregation {...aggregationProps} />;
     }
   }
 }
 
 AggregationFilter.propTypes = {
-  aggregationType: PropTypes.oneOf(['range', 'checkbox', 'multiselect'])
-    .isRequired,
+  aggregationType: PropTypes.oneOf([
+    'range',
+    'checkbox',
+    'multiselect',
+    'checkbox-composite',
+  ]).isRequired,
 };
 
 export default AggregationFilter;

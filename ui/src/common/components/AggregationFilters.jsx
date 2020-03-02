@@ -63,6 +63,7 @@ class AggregationFilters extends Component {
                     aggregationType={aggregation.getIn(['meta', 'type'])}
                     name={aggregation.getIn(['meta', 'title'])}
                     buckets={aggregation.get('buckets')}
+                    afterKey={aggregation.getIn(['after_key', 'inner_key'])} // TODO CHECK
                     initialBuckets={initialAggregations.getIn([
                       aggregationKey,
                       'buckets',
@@ -70,8 +71,9 @@ class AggregationFilters extends Component {
                     splitDisplayName={aggregation.getIn(['meta', 'split'])}
                     bucketHelp={aggregation.getIn(['meta', 'bucket_help'])}
                     selections={query[aggregationKey]}
-                    onChange={selections => {
-                      onAggregationChange(aggregationKey, selections);
+                    onChange={(selections, after = null) => {
+                      // TODO: CHECK THIS
+                      onAggregationChange(aggregationKey, selections, after);
                     }}
                   />
                 </EventTracker>

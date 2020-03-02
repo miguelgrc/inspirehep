@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { Col, Row } from 'antd';
 
-import UnclickableTag from './UnclickableTag';
-import CheckboxItem from './CheckboxItem';
-import AggregationBox from './AggregationBox';
-import SecondaryButton from './SecondaryButton';
-import { forceArray } from '../utils';
-import HelpIconTooltip from './HelpIconTooltip';
-import ExternalLink from './ExternalLink';
+import UnclickableTag from '../UnclickableTag';
+import CheckboxItem from '../CheckboxItem';
+import AggregationBox from '../AggregationBox';
+import SecondaryButton from '../SecondaryButton';
+import { forceArray } from '../../utils';
+import HelpIconTooltip from '../HelpIconTooltip';
+import ExternalLink from '../ExternalLink';
 
-const BUCKET_CHUNK_SIZE = 10;
+const BUCKET_CHUNK_SIZE = 1;
 export const BUCKET_NAME_SPLITTER = '_';
 
 class CheckboxAggregation extends Component {
@@ -66,9 +66,14 @@ class CheckboxAggregation extends Component {
 
   onShowMoreClick() {
     const { maxBucketCountToDisplay } = this.state;
+    const { selections, requestMoreData, afterKey } = this.props;
     this.setState({
       maxBucketCountToDisplay: maxBucketCountToDisplay + BUCKET_CHUNK_SIZE,
     });
+    console.log('REQUESTING MORE DATA.....');
+    console.log(afterKey);
+    // if (requestMoreData)
+    requestMoreData(selections, afterKey);
   }
 
   static renderBucketHelpTooltip(bucketHelpKey) {
@@ -165,6 +170,8 @@ CheckboxAggregation.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string,
   ]),
+  requestMoreData: PropTypes.func,
+  afterKey: PropTypes.func,
 };
 
 CheckboxAggregation.defaultProps = {

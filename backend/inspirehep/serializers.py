@@ -106,14 +106,15 @@ class JSONSerializerFacets(InvenioJSONSerializer):
         """
 
         search_result["aggregations"] = self._unnest_aggregations(
-            search_result.get("aggregations", {})
+            self, search_result.get("aggregations", {})
         )
 
         return json.dumps(search_result)
 
     @staticmethod
-    def _unnest_aggregations(aggregations):
-        """Flatten the aggregation dict in case there are nested aggregations."""
+    def _unnest_aggregations(self, aggregations):
+        """Flatten the aggregation dict in case there are nested aggregations
+        and normalizes the keys for composite aggregations."""
 
         new_aggs = {}
 
@@ -124,6 +125,17 @@ class JSONSerializerFacets(InvenioJSONSerializer):
                     if nested_key != "doc_count":
                         new_aggs[nested_key] = nested[nested_key]
             else:
-                new_aggs[agg_key] = agg_value
+                new_aggs[agg_key] = self._normalize_bucket_keys(agg_value)
 
         return new_aggs
+
+    @staticmethod
+    def _normalize_bucket_keys(aggregation):
+        """Normalizes the bucket keys for a composite aggregation."""
+
+        if "buckets" in aggregation:
+            for bucket in aggregation["buckets"]:
+                if isinstance(bucket["key"], dict) and "inner_key" in bucket["key"]:
+                    bucket["key"] = bucket["key"]["inner_key"]
+
+        return aggregation

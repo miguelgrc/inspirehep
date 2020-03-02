@@ -16,11 +16,20 @@ const stateToProps = (state, { namespace }) => ({
 });
 
 export const dispatchToProps = (dispatch, { namespace }) => ({
-  onAggregationChange(aggregationKey, selections) {
+  onAggregationChange(aggregationKey, selections, after) {
     dispatch(
-      searchQueryUpdate(namespace, { [aggregationKey]: selections, page: '1' })
+      searchQueryUpdate(namespace, {
+        [aggregationKey]: selections,
+        page: '1',
+        after,
+      })
     );
   },
+  // onRequestMoreData(aggregationKey, after) {
+  //   dispatch(
+  //     whateverQueryUpdate(namespace, { after })
+  //   );
+  // }
 });
 
 export default connect(stateToProps, dispatchToProps)(

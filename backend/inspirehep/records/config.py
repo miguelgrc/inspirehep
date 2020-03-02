@@ -36,6 +36,7 @@ from inspirehep.search.api import (
 from inspirehep.search.facets import (
     citation_summary,
     citations_by_year,
+    collaborators,
     conferences_date_range_contains_other_conferences,
     conferences_start_date_range_filter,
     hep_author_publications,
@@ -470,6 +471,7 @@ RECORDS_REST_FACETS = {
     "citation-summary": citation_summary,
     "citations-by-year": citations_by_year,
     "records-hep": records_hep,
+    "collaborators": collaborators,
     "records-jobs": {
         "filters": {
             "field_of_interest": terms_filter("arxiv_categories"),

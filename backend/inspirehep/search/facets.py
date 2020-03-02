@@ -131,22 +131,46 @@ def nested_filters(author_recid):
 
 
 def hep_author_publications():
-    author = request.values.get("author_recid", "", type=str)
     return {
         "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
+        "aggs": {**current_app.config["HEP_COMMON_AGGS"]},
+    }
+
+
+def collaborators():
+    author = request.values.get("author_recid", "", type=str)
+    after = request.values.get("after", "", type=str)
+    # after = "NOREC_Daniel Louis Jafferis"
+    ret = {
+        "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
         "aggs": {
-            **current_app.config["HEP_COMMON_AGGS"],
             "author": {
-                "terms": {"field": "facet_author_name", "size": 20, "exclude": author},
-                "meta": {
-                    "title": "Collaborators",
-                    "order": 3,
-                    "type": "checkbox",
-                    "split": True,
-                },
-            },
+                "composite": {
+                    "size": 2,
+                    "sources": [
+                        {
+                            "inner_key": {
+                                "terms": {
+                                    "field": "facet_author_name",
+                                    # "exclude": author,
+                                    # "size": 2,
+                                }
+                            }
+                        }
+                    ],
+                    "meta": {
+                        "title": "Collaborators",
+                        "order": 3,
+                        "type": "checkbox-composite",
+                        "split": True,
+                    },
+                }
+            }
         },
     }
+    if after:
+        ret["aggs"]["author"]["composite"]["after"] = {"inner_key": after}
+    return ret
 
 
 def hep_author_publications_cataloger():

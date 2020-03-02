@@ -38,6 +38,7 @@ import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import UserSettingsAction from '../components/UserSettingsAction';
+import { fetchCollaborators } from '../../actions/collaborators';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -79,6 +80,8 @@ function DetailPage({
         const query = publicationsQuery.toJS();
         dispatch(fetchCitationSummary(query));
         dispatch(fetchCitationsByYear(query));
+
+        dispatch(fetchCollaborators(query));
       }
     },
     [dispatch, authorFacetName] // eslint-disable-line react-hooks/exhaustive-deps
@@ -109,7 +112,10 @@ function DetailPage({
   const metaDescription = getAuthorMetaDescription(metadata);
   return (
     <>
-      <DocumentHead title={getAuthorDisplayName(name)} description={metaDescription}/>
+      <DocumentHead
+        title={getAuthorDisplayName(name)}
+        description={metaDescription}
+      />
       <Row className="mv3" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Alert
